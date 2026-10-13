@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Every UNO and UNO No Mercy card, in CSS</title>
+<style>
+:root{--bg:#f3f2ee;--fg:#16171a;--mut:#6b6d75;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101114;--fg:#f2f2f4;--mut:#9496a0}}
+:root[data-theme="dark"]{--bg:#101114;--fg:#f2f2f4;--mut:#9496a0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 "Inter","Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;padding:40px 20px 72px}
+main{max-width:1200px;margin:0 auto}
+h1,h2{font-weight:800;letter-spacing:-.035em}
+h1{font-size:clamp(34px,6vw,60px);line-height:1;margin:0 0 10px}
+h2{font-size:26px;margin:64px 0 4px}
+p{margin:0 0 22px;color:var(--mut);max-width:62ch}
+h3{font-size:14px;font-weight:700;margin:30px 0 14px}
+.row{display:flex;flex-wrap:wrap;gap:20px}
+.w{max-width:128px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:12.5px;font-weight:600;color:var(--mut)}
+.card{--c:#111;position:relative;width:120px;height:180px;border-radius:0;border:4px solid var(--c);overflow:hidden;font-weight:800;
+ background:linear-gradient(155deg,color-mix(in srgb,var(--c) 80%,#fff) 0%,var(--c) 45%,color-mix(in srgb,var(--c) 80%,#000) 100%);
+ box-shadow:0 0 0 1px rgba(0,0,0,.45),0 16px 26px -12px rgba(0,0,0,.65);transition:transform .15s}
+.card:hover,.card:focus-visible{transform:translateY(-6px);outline:none}
+.card:focus-visible{box-shadow:0 0 0 3px #3d8bff}
+.card::before{content:"";position:absolute;inset:13% -16%;border-radius:50%;background:color-mix(in srgb,var(--c) 14%,#17181e);transform:rotate(-28deg);box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--c) 85%,#000)}
+.card::after{content:"";position:absolute;inset:5px;border:1.5px solid rgba(255,255,255,.35);pointer-events:none;z-index:2}
+.card.wild{--c:#111;border-color:#111;background:linear-gradient(155deg,#26272e,#0a0a0c);box-shadow:0 0 0 1px rgba(255,255,255,.12),0 16px 26px -12px rgba(0,0,0,.65)}
+.card.wild::before{background:radial-gradient(closest-side,#17181e 79%,transparent 80%),conic-gradient(#e63b1f 0 25%,#1565d8 0 50%,#34a853 0 75%,#f2c200 0);box-shadow:none}
+.card.plain::before{background:conic-gradient(#e63b1f 0 25%,#1565d8 0 50%,#34a853 0 75%,#f2c200 0);box-shadow:inset 0 0 0 3px #fff}
+.card.wild::after{border-color:rgba(255,255,255,.14)}
+.card.wild.dk::before{background:radial-gradient(closest-side,#17181e 79%,transparent 80%),conic-gradient(#e84a9a 0 25%,#1fb5a8 0 50%,#f28c28 0 75%,#8a4fd0 0)}
+.card.plain.dk::before{background:conic-gradient(#e84a9a 0 25%,#1fb5a8 0 50%,#f28c28 0 75%,#8a4fd0 0);box-shadow:inset 0 0 0 3px #fff}
+.card.fx{border-color:var(--c);background:radial-gradient(rgba(255,255,255,.3) 1.6px,transparent 2.2px) 0 0/11px 11px,linear-gradient(155deg,color-mix(in srgb,var(--c2) 80%,#fff) 0%,var(--c2) 45%,color-mix(in srgb,var(--c2) 80%,#000) 100%)}
+.card.fx::before{box-shadow:inset 0 0 0 3px var(--c)}
+.card.lt::before{background:color-mix(in srgb,var(--c) 12%,#fff);box-shadow:inset 0 0 0 3px var(--c)}
+.card.lt .s{color:color-mix(in srgb,var(--c) 88%,#000)}
+.dual{display:flex;flex-direction:column;align-items:center;gap:3px}
+.dual .r{display:flex;align-items:center;gap:4px;line-height:1}
+.dual .t{font-size:16px;font-weight:900}
+.dual .tg{font-size:8px;letter-spacing:.14em;opacity:.8}
+.dual .dv{display:block;width:46px;height:2px;background:currentColor;opacity:.3}
+.wc{display:block;width:26px;height:26px;border-radius:50%;background:conic-gradient(#e63b1f 0 25%,#1565d8 0 50%,#34a853 0 75%,#f2c200 0)}
+.card.wild.fa{background:repeating-linear-gradient(45deg,rgba(255,255,255,.2) 0 3px,transparent 3px 9px),linear-gradient(155deg,#26272e,#0a0a0c)}
+.card.wild.fa::after{display:none}
+.card.dks .c{color:#17181e}
+.tok{position:relative;width:120px;height:120px;border-radius:50%;border:4px solid var(--c);display:grid;place-items:center;color:color-mix(in srgb,var(--c) 82%,#fff);background:radial-gradient(circle at 30% 25%,color-mix(in srgb,var(--c) 80%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 75%,#000));box-shadow:0 0 0 1px rgba(0,0,0,.45),0 16px 26px -12px rgba(0,0,0,.65);transition:transform .15s}
+.tok:hover,.tok:focus-visible{transform:translateY(-6px);outline:none}
+.tok::before{content:"";position:absolute;inset:12px;border-radius:50%;background:color-mix(in srgb,var(--c) 14%,#17181e);box-shadow:inset 0 0 0 3px color-mix(in srgb,var(--c) 85%,#000)}
+.tok::after{content:"";position:absolute;inset:4px;border-radius:50%;border:1.5px dashed rgba(255,255,255,.45)}
+.tok svg{position:relative;z-index:1}
+.w em{display:block;font-style:normal;font-weight:600;font-size:11px;opacity:.7;margin-top:1px}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 4px}
+.nav a{padding:7px 14px;border:1px solid var(--mut);color:var(--fg);text-decoration:none;font-size:13px;font-weight:700}
+.nav a:hover{background:var(--fg);color:var(--bg)}
+.s{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:color-mix(in srgb,var(--c) 82%,#fff);font-size:66px;line-height:1}
+.s svg{display:block;overflow:visible}
+.s.n{font-weight:900;transform:skewX(-6deg);line-height:.8}
+.s .u{text-decoration:underline;text-decoration-thickness:5px;text-underline-offset:4px}
+.wild .s,.wild .c{color:#fff}
+.s .dn{font-size:30px;font-weight:900;margin-top:2px}
+.s .sm{font-size:12px;font-weight:800;letter-spacing:.06em;margin-top:3px}
+.c{color:#fff;position:absolute;z-index:3;font-size:16px;line-height:1;font-weight:800}
+.c svg{display:block}
+.tl{top:9px;left:10px}.br{bottom:9px;right:10px;transform:rotate(180deg)}
+</style>
+</head>
+<body>
+<main>
+<h1>Every card. Pure CSS.</h1>
+<nav class="nav"><a href="#shared">UNO</a><a href="#nm">No Mercy</a><a href="#flip">Flip!</a><a href="#allwild">All Wild</a><a href="#flex">Flex</a></nav>
+<p>Each face is a styled div with a tilted oval, corner indexes and a bold symbol. Under each card, ×N is how many copies of that card are in the deck.</p>
+<div id="shared"></div>
+<div id="nm"></div>
+<div id="flip"></div>
+<div id="allwild"></div>
+<div id="flex"></div>
+</main>
+<script>
+var COL={Red:"#e63b1f",Yellow:"#f2c200",Green:"#34a853",Blue:"#1565d8"},COLS=["#e63b1f","#1565d8","#34a853","#f2c200"];
+function svg(i,w){w=w||56;return '<svg viewBox="0 0 64 64" width="'+w+'" height="'+w+'">'+i+'</svg>'}
+var P='4,10 28,10 28,2 46,17 28,32 28,24 4,24';
+var skipI='<circle cx="32" cy="32" r="23" fill="none" stroke="currentColor" stroke-width="9"/><path d="M16 48L48 16" stroke="currentColor" stroke-width="9"/>';
+var revI='<g fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><polygon transform="translate(10,0)" points="'+P+'"/><polygon transform="rotate(180 32 32) translate(10,0)" points="'+P+'"/></g>';
+var fan2='<g fill="currentColor"><rect x="14" y="10" width="26" height="38" rx="4" opacity=".5" transform="rotate(-16 27 29)"/><rect x="24" y="10" width="26" height="38" rx="4" transform="rotate(14 37 29)"/></g>';
+function fanC(p){return [-38,-13,13,38].map(function(a,i){return '<rect x="22" y="6" width="20" height="32" rx="3" fill="'+p[i]+'" transform="rotate('+a+' 32 46)"/>'}).join('')}
+var fan4=fanC(COLS);
+function trashI(b,l){return '<g fill="'+b+'"><rect x="25" y="3" width="14" height="8" rx="2"/><rect x="11" y="12" width="42" height="9" rx="3"/><path d="M16 25H48L44 58Q44 61 41 61H23Q20 61 20 58Z"/></g><path d="M26 32V52M32 32V52M38 32V52" style="stroke:'+l+'" stroke-width="4" stroke-linecap="round"/>'}
+var skipX='<circle cx="32" cy="32" r="23" fill="none" stroke="currentColor" stroke-width="9"/><path d="M20 20L44 44M44 20L20 44" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>';
+function wheelI(p,n,ptr){p=p||COLS;n=n||8;var st=360/n,r='',pt=function(a){a=(a-90)*Math.PI/180;return [32+23*Math.cos(a),32+23*Math.sin(a)]};
+ for(var i=0;i<n;i++){var a=pt(i*st),b=pt(i*st+st);r+='<path d="M32 32L'+a[0].toFixed(1)+' '+a[1].toFixed(1)+'A23 23 0 0 1 '+b[0].toFixed(1)+' '+b[1].toFixed(1)+'Z" fill="'+p[i%p.length]+'"/>'}
+ r+='<circle cx="32" cy="32" r="23" fill="none" stroke="#fff" stroke-width="3"/>';
+ if(ptr===false)return r+'<circle cx="32" cy="32" r="9" fill="#17181e" stroke="#fff" stroke-width="2.5"/><path d="M32 27V37M27 32H37" stroke="#fff" stroke-width="3" stroke-linecap="round"/>';
+ return r+'<circle cx="32" cy="32" r="6" fill="#17181e" stroke="#fff" stroke-width="2.5"/><polygon points="32,2 26,10 38,10" fill="#fff"/>'}
+function wheelM(){return '<circle cx="32" cy="34" r="22" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="32" cy="34" r="6" fill="currentColor"/><polygon points="32,0 26,9 38,9" fill="currentColor"/>'}
+var ICON={
+ skip:[svg(skipI),svg(skipI,18)],rev:[svg(revI),svg(revI,19)],
+ d2:[svg(fan2,50)+'<div class="dn">+2</div>','+2'],d4:[svg(fan2,50)+'<div class="dn">+4</div>','+4'],
+ all:[svg(skipX,50)+'<div class="sm">ALL</div>',svg(skipX,18)],dis:[svg(trashI('currentColor','color-mix(in srgb,var(--c) 14%,#17181e)')),svg(trashI('currentColor','var(--c)'),18)]
+};
+function colored(c,key,nm,note,x,cls){
+ var s,k,sc='s';
+ if(ICON[key]){s=ICON[key][0];k=ICON[key][1]}else{k=key;sc='s n';s=(key==='6'||key==='9')?'<span class="u">'+key+'</span>':key}
+ return '<div class="w"><div class="card'+(x?' fx':'')+(x&&x.indexOf('f2c200')>-1?' y2':'')+(cls?' '+cls:'')+'" tabindex="0" style="--c:'+c+(x||'')+'"><b class="c tl">'+k+'</b><div class="'+sc+'">'+s+'</div><b class="c br">'+k+'</b>'+'</div>'+(note?'<span>'+note+'</span>':'')+'</div>'}
+function wild(label,inner,nm,note,plain,dk,cls){
+ return '<div class="w"><div class="card wild'+(plain?' plain':'')+(dk?' dk':'')+(cls?' '+cls:'')+'" tabindex="0"><b class="c tl">'+label+'</b><div class="s">'+inner+'</div><b class="c br">'+label+'</b>'+'</div><span>'+note+'</span></div>'}
+function fanN(n,p){return svg(p?fanC(p):fan4,52)+'<div class="dn">+'+n+'</div>'}
+function sec(id,t,d,h){document.getElementById(id).innerHTML='<h2>'+t+'</h2><p>'+d+'</p>'+h}
+var h='',SH={skip:'Skip',rev:'Reverse',d2:'Draw Two'};
+Object.keys(COL).forEach(function(n){var c=COL[n],r='<h3>'+n+'</h3><div class="row">';
+ for(var i=0;i<=9;i++)r+=colored(c,String(i),0,n+' '+i+'<em>×'+(i?2:1)+'</em>');
+ Object.keys(SH).forEach(function(k){r+=colored(c,k,0,n+' '+SH[k]+'<em>×2</em>')});h+=r+'</div>'});
+h+='<h3>Wild</h3><div class="row">'+wild('W','',0,'Wild<em>×4</em>',1)+wild('+4',fanN(4),0,'Wild Draw Four<em>×4</em>')+'</div>';
+sec('shared','UNO','Classic deck: 108 cards. Each color has one 0, two each of 1–9, and two each of Skip, Reverse and Draw Two. There are also four Wilds and four Wild Draw Fours.',h);
+h='';var NM={d4:'Draw 4',all:'Skip Everyone',dis:'Discard All'},NMC={d4:2,all:2,dis:3};
+Object.keys(COL).forEach(function(n){var c=COL[n],r='<h3>'+n+'</h3><div class="row">';
+ Object.keys(NM).forEach(function(k){r+=colored(c,k,1,n+' '+NM[k]+'<em>×'+NMC[k]+'</em>')});h+=r+'</div>'});
+h+='<h3>Wild</h3><div class="row">'+wild('+4⇄',svg(revI,40)+'<div class="dn">+4</div>',1,'Wild +4 Reverse<em>×8</em>')+wild('+6',fanN(6),1,'Wild Draw 6<em>×4</em>')+wild('+10',fanN(10),1,'Wild Draw 10<em>×4</em>')+wild(svg(wheelM(),22),svg(wheelI(),64),1,'Wild Color Roulette<em>×8</em>')+'</div>';
+sec('nm','UNO Show ’em No Mercy','168 cards. Per color: two each of 0–9 and three each of Skip, Reverse and Draw Two (same faces as UNO above), plus the cards below. Draw cards stack, and 25 cards in hand knocks you out.',h);
+var PK={Pink:"#e84a9a",Teal:"#1fb5a8",Orange:"#f28c28",Purple:"#8a4fd0"},PKS=Object.keys(PK).map(function(k){return PK[k]});
+var flipI='<polygon points="6,16 28,8 28,56 6,48" fill="currentColor"/><polygon points="58,16 36,8 36,56 58,48" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>';
+var swapI='<g fill="currentColor"><rect x="6" y="22" width="20" height="28" rx="3"/><rect x="38" y="22" width="20" height="28" rx="3"/><polygon points="56,13 50,23 44,13"/><polygon points="8,59 14,49 20,59"/></g><g fill="none" stroke="currentColor" stroke-width="4"><path d="M14 18Q32 2 50 18"/><path d="M50 54Q32 70 14 54"/></g>';
+var crossI='<circle cx="32" cy="32" r="17" fill="none" stroke="currentColor" stroke-width="6"/><circle cx="32" cy="32" r="4" fill="currentColor"/><path d="M32 4V16M32 48V60M4 32H16M48 32H60" stroke="currentColor" stroke-width="6"/>';
+function cw(i,t){return '<span style="display:flex;align-items:center;gap:1px">'+i+t+'</span>'}
+function fl(i,w,lab){return svg(i,w)+'<div class="sm">'+lab+'</div>'}
+ICON.flip=[svg(flipI),svg(flipI,18)];
+ICON.d1=[svg(fan2,50)+'<div class="dn">+1</div>','+1'];
+ICON.d5=[svg(fan2,50)+'<div class="dn">+5</div>','+5'];
+// Flip
+h='';
+[['Light side',COL,{d1:'Draw One',rev:'Reverse',skip:'Skip',flip:'Flip'}],['Dark side',PK,{d5:'Draw Five',rev:'Reverse',all:'Skip Everyone',flip:'Flip'}]].forEach(function(sd){
+ h+='<h3>'+sd[0]+'</h3>';var L=sd[0]==='Light side'?'lt':'dks';
+ Object.keys(sd[1]).forEach(function(n){var c=sd[1][n],r='<div class="row" style="margin-bottom:18px">';
+  for(var i=1;i<=9;i++)r+=colored(c,String(i),0,n+' '+i+'<em>'+sd[0]+' · ×2</em>','',L);
+  Object.keys(sd[2]).forEach(function(k){r+=colored(c,k,0,n+' '+sd[2][k]+'<em>'+sd[0]+' · ×2</em>','',L)});h+=r+'</div>'});
+ h+='<div class="row">'+(sd[0]==='Light side'?wild('W','',0,'Wild<em>Light side · ×4</em>',1)+wild('+2',fanN(2),0,'Wild Draw Two<em>Light side · ×4</em>'):wild('W','',0,'Wild<em>Dark side · ×4</em>',1,1)+wild(svg(wheelM(),22),svg(wheelI(PKS,8),56)+'<div class="sm">DRAW COLOR</div>',0,'Wild Draw Color<em>Dark side · ×4</em>',0,1))+'</div>';
+});
+sec('flip','UNO Flip!','Every card is double-sided: a light side with four colors and a dark side with four more. The Flip card switches the whole game over. There are no zeros. 112 cards, and each side has 112 faces.',h);
+// All Wild
+sec('allwild','UNO All Wild','112 cards. Every card is wild, so there are no colors or numbers to match.','<div class="row">'+
+ wild('W','',0,'Wild<em>×54</em>',1)+wild(svg(revI,19),svg(revI,48),0,'Wild Reverse<em>×14</em>')+wild(svg(skipI,18),svg(skipI,50),0,'Wild Skip<em>×14</em>')+wild(cw(svg(skipI,18),'×2'),fl(skipI,48,'×2'),0,'Wild Skip Two<em>×6</em>')+
+ wild('+2',fanN(2),0,'Wild Draw Two<em>×10</em>')+wild('+4',fanN(4),0,'Wild Draw Four<em>×6</em>')+wild(cw(svg(crossI,17),'+2'),svg(crossI,46)+'<div class="dn">+2</div>',0,'Wild Targeted Draw Two<em>×4</em>')+wild(svg(swapI,18),svg(swapI,52),0,'Wild Forced Swap<em>×4</em>')+'</div>');
+// Flex
+var peopleI='<g fill="currentColor"><circle cx="32" cy="20" r="10"/><path d="M15 56Q15 33 32 33Q49 33 49 56Z"/><circle cx="10" cy="28" r="6"/><path d="M0 54Q0 40 10 40Q14 40 17 41Q11 46 11 54Z"/><circle cx="54" cy="28" r="6"/><path d="M64 54Q64 40 54 40Q50 40 47 41Q53 46 53 54Z"/></g>';
+ICON.fd2=[svg(fan2,50)+'<div class="dn">+2</div>',cw(svg(peopleI,17),'+1')];
+ICON.fr=[svg(revI),cw(svg(revI,15),svg(skipI,14))];
+ICON.fs=[svg(skipI),svg(skipX,18)];
+function tok(c,p,n){return '<div class="w"><div class="tok" tabindex="0" style="--c:'+c+'"><svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg></div><span>'+n+'</span></div>'}
+var WB='<i class="wc" style="width:56px;height:56px"></i>';
+h='<h3>Power tokens</h3><div class="row">'+tok('#34a853','<path d="M12 34L26 48L52 16"/>','Power token<em>Green side: flex allowed</em><em>×8 (one per player)</em>')+tok('#e63b1f','<path d="M16 16L48 48M48 16L16 48"/>','Power token<em>Red side: flex used · same token</em>')+'</div>';
+var NN=Object.keys(COL);
+NN.forEach(function(n){var c=COL[n],o=NN.filter(function(x){return x!==n}),r='<h3>'+n+'</h3><div class="row">';
+ for(var i=1;i<=8;i++){var q=o[(i-1)%3];r+=colored(c,String(i),0,n+' '+i+'<em>Flex side: '+q+'</em><em>×1</em>',';--c2:'+COL[q])}
+ [['fd2','Draw Two','All Draw One'],['fr','Reverse','Reverse Skip'],['fs','Skip','Skip Everyone']].forEach(function(a,k){var q=o[k%3];r+=colored(c,a[0],0,n+' '+a[1]+'<em>Flex: '+a[2]+'</em><em>×1</em>',';--c2:'+COL[q],'fa')});
+ h+=r+'</div>'});
+h+='<h3>Wild</h3><div class="row">'+
+ wild(cw(svg(crossI,16),'+2'),WB,0,'Wild<em>Flex: Targeted Draw Two</em><em>×8 (either flex)</em>',0,0,'fa')+
+ wild(cw(svg(peopleI,17),'+2'),WB,0,'Wild<em>Flex: All Draw Two</em><em>×8 (either flex)</em>',0,0,'fa')+
+ wild(cw(svg(crossI,16),'+4'),fanN(4),0,'Wild Draw Four<em>Flex: Targeted Draw Four</em><em>×2</em>',0,0,'fa')+
+ wild(svg('<circle cx="32" cy="32" r="23" fill="none" stroke="currentColor" stroke-width="5"/><path d="M32 9V55" stroke="currentColor" stroke-width="4"/><svg x="14" y="14" width="36" height="36" viewBox="0 0 64 64">'+revI+'</svg>',22),svg('<path d="M32 10A22 22 0 0 0 32 54Z" fill="#34a853"/><path d="M32 10A22 22 0 0 1 32 54Z" fill="#e63b1f"/><circle cx="32" cy="32" r="22" fill="none" stroke="#fff" stroke-width="3"/><svg x="16" y="16" width="32" height="32" viewBox="0 0 64 64" style="color:#fff">'+revI+'</svg>',56)+'<div class="sm">ALL FLIP</div>',0,'Wild All Flip<em>Flex: all players flip power tokens</em><em>×6</em>',0,0,'fa')+'</div>';
+sec('flex','UNO Flex','The oval and card edge keep the main color, and the dotted outer area is the flex color. On action cards the oval shows the regular action; the dotted area and corner symbols show the flex action. Color pairings are examples. 112 cards: one flex and one regular copy of each number 1–8 and of Draw Two, Skip and Reverse per color, plus the wilds below. The 8 power tokens are not in the draw deck.',h);
+</script>
+</body>
+</html>
