@@ -42,7 +42,10 @@ h3{font-size:14px;font-weight:700;margin:30px 0 14px}
 .dual .dv{display:block;width:46px;height:2px;background:currentColor;opacity:.3}
 .wc{display:block;width:26px;height:26px;border-radius:50%;background:conic-gradient(#e63b1f 0 25%,#1565d8 0 50%,#34a853 0 75%,#f2c200 0)}
 .card.wild.fa{background:repeating-linear-gradient(45deg,rgba(255,255,255,.2) 0 3px,transparent 3px 9px),linear-gradient(155deg,#26272e,#0a0a0c)}
-.card.wild.fa::after{display:none}
+.card.fa:not(.wild){border-color:var(--c);background:radial-gradient(rgba(255,255,255,.3) 1.6px,transparent 2.2px) 0 0/11px 11px,linear-gradient(155deg,color-mix(in srgb,var(--c) 80%,#fff) 0%,var(--c) 45%,color-mix(in srgb,var(--c) 80%,#000) 100%)}
+.card.fa:not(.wild)::before{box-shadow:inset 0 0 0 3px var(--c)}
+.nn{position:relative;display:block;font-weight:900;font-size:66px;line-height:.8;transform:skewX(-6deg)}
+.fi{position:absolute;left:50%;top:100%;margin-top:12px;transform:translateX(-50%) skewX(6deg)}
 .card.dks .c{color:#17181e}
 .tok{position:relative;width:120px;height:120px;border-radius:50%;border:4px solid var(--c);display:grid;place-items:center;color:color-mix(in srgb,var(--c) 82%,#fff);background:radial-gradient(circle at 30% 25%,color-mix(in srgb,var(--c) 80%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 75%,#000));box-shadow:0 0 0 1px rgba(0,0,0,.45),0 16px 26px -12px rgba(0,0,0,.65);transition:transform .15s}
 .tok:hover,.tok:focus-visible{transform:translateY(-6px);outline:none}
@@ -112,11 +115,12 @@ Object.keys(COL).forEach(function(n){var c=COL[n],r='<h3>'+n+'</h3><div class="r
  Object.keys(SH).forEach(function(k){r+=colored(c,k,0,n+' '+SH[k]+'<em>×2</em>')});h+=r+'</div>'});
 h+='<h3>Wild</h3><div class="row">'+wild('W','',0,'Wild<em>×4</em>',1)+wild('+4',fanN(4),0,'Wild Draw Four<em>×4</em>')+'</div>';
 sec('shared','UNO','Classic deck: 108 cards. Each color has one 0, two each of 1–9, and two each of Skip, Reverse and Draw Two. There are also four Wilds and four Wild Draw Fours.',h);
-h='';var NM={d4:'Draw 4',all:'Skip Everyone',dis:'Discard All'},NMC={d4:2,all:2,dis:3};
+h='';var NM={skip:'Skip',rev:'Reverse',d2:'Draw 2',d4:'Draw 4',all:'Skip Everyone',dis:'Discard All'},NMC={skip:3,rev:3,d2:3,d4:2,all:2,dis:3};
 Object.keys(COL).forEach(function(n){var c=COL[n],r='<h3>'+n+'</h3><div class="row">';
+ for(var i=0;i<=9;i++)r+=colored(c,String(i),1,n+' '+i+'<em>×2</em>');
  Object.keys(NM).forEach(function(k){r+=colored(c,k,1,n+' '+NM[k]+'<em>×'+NMC[k]+'</em>')});h+=r+'</div>'});
 h+='<h3>Wild</h3><div class="row">'+wild('+4⇄',svg(revI,40)+'<div class="dn">+4</div>',1,'Wild +4 Reverse<em>×8</em>')+wild('+6',fanN(6),1,'Wild Draw 6<em>×4</em>')+wild('+10',fanN(10),1,'Wild Draw 10<em>×4</em>')+wild(svg(wheelM(),22),svg(wheelI(),64),1,'Wild Color Roulette<em>×8</em>')+'</div>';
-sec('nm','UNO Show ’em No Mercy','168 cards. Per color: two each of 0–9 and three each of Skip, Reverse and Draw Two (same faces as UNO above), plus the cards below. Draw cards stack, and 25 cards in hand knocks you out.',h);
+sec('nm','UNO Show ’em No Mercy','168 cards. Draw cards stack, you keep drawing until you can play, and 25 cards in hand knocks you out.',h);
 var PK={Pink:"#e84a9a",Teal:"#1fb5a8",Orange:"#f28c28",Purple:"#8a4fd0"},PKS=Object.keys(PK).map(function(k){return PK[k]});
 var flipI='<polygon points="6,16 28,8 28,56 6,48" fill="currentColor"/><polygon points="58,16 36,8 36,56 58,48" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"/>';
 var swapI='<g fill="currentColor"><rect x="6" y="22" width="20" height="28" rx="3"/><rect x="38" y="22" width="20" height="28" rx="3"/><polygon points="56,13 50,23 44,13"/><polygon points="8,59 14,49 20,59"/></g><g fill="none" stroke="currentColor" stroke-width="4"><path d="M14 18Q32 2 50 18"/><path d="M50 54Q32 70 14 54"/></g>';
@@ -148,17 +152,22 @@ ICON.fs=[svg(skipI),svg(skipX,18)];
 function tok(c,p,n){return '<div class="w"><div class="tok" tabindex="0" style="--c:'+c+'"><svg viewBox="0 0 64 64" width="58" height="58" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg></div><span>'+n+'</span></div>'}
 var WB='<i class="wc" style="width:56px;height:56px"></i>';
 h='<h3>Power tokens</h3><div class="row">'+tok('#34a853','<path d="M12 34L26 48L52 16"/>','Power token<em>Green side: flex allowed</em><em>×8 (one per player)</em>')+tok('#e63b1f','<path d="M16 16L48 48M48 16L16 48"/>','Power token<em>Red side: flex used · same token</em>')+'</div>';
-var NN=Object.keys(COL);
-NN.forEach(function(n){var c=COL[n],o=NN.filter(function(x){return x!==n}),r='<h3>'+n+'</h3><div class="row">';
- for(var i=1;i<=8;i++){var q=o[(i-1)%3];r+=colored(c,String(i),0,n+' '+i+'<em>Flex side: '+q+'</em><em>×1</em>',';--c2:'+COL[q])}
- [['fd2','Draw Two','All Draw One'],['fr','Reverse','Reverse Skip'],['fs','Skip','Skip Everyone']].forEach(function(a,k){var q=o[k%3];r+=colored(c,a[0],0,n+' '+a[1]+'<em>Flex: '+a[2]+'</em><em>×1</em>',';--c2:'+COL[q],'fa')});
+var NN=Object.keys(COL),FM={Red:['Blue','Green','Yellow'],Blue:['Red','Yellow','Green'],Green:['Yellow','Red','Blue'],Yellow:['Green','Blue','Red']};
+var FFC='<path d="M32 10A22 22 0 0 0 32 54Z" fill="#34a853"/><path d="M32 10A22 22 0 0 1 32 54Z" fill="#e63b1f"/><circle cx="32" cy="32" r="22" fill="none" stroke="#fff" stroke-width="3"/><svg x="16" y="16" width="32" height="32" viewBox="0 0 64 64" style="color:#fff">'+revI+'</svg>',FFM='<circle cx="32" cy="32" r="23" fill="none" stroke="currentColor" stroke-width="5"/><path d="M32 9V55" stroke="currentColor" stroke-width="4"/><svg x="14" y="14" width="36" height="36" viewBox="0 0 64 64">'+revI+'</svg>';
+for(var q=1;q<=8;q++)ICON['f'+q]=['<span class="nn">'+q+'<span class="fi">'+svg(FFC,26)+'</span></span>','<span style="display:flex;align-items:center;gap:3px">'+q+svg(FFM,16)+'</span>'];
+NN.forEach(function(n){var c=COL[n],ev=(n==='Red'||n==='Green'),r='<h3>'+n+' · regular</h3><div class="row" style="margin-bottom:20px">';
+ for(var i=1;i<=8;i++){var fl2=ev?(i%2===0):(i%2===1);r+=colored(c,fl2?'f'+i:String(i),0,n+' '+i+'<em>Regular'+(fl2?' · flip icon':'')+'</em><em>×1</em>')}
+ [['d2','Draw Two'],['rev','Reverse'],['skip','Skip']].forEach(function(a){r+=colored(c,a[0],0,n+' '+a[1]+'<em>Regular</em><em>×1</em>')});
+ r+='</div><h3>'+n+' · flex</h3><div class="row">';
+ for(var i=1;i<=8;i++){var qq=FM[n][i<=3?0:i<=6?1:2];r+=colored(c,String(i),0,n+' '+i+'<em>Flex side: '+qq+'</em><em>×1</em>',';--c2:'+COL[qq])}
+ [['fd2','Draw Two','All Draw One'],['fr','Reverse','Reverse Skip'],['fs','Skip','Skip Everyone']].forEach(function(a){r+=colored(c,a[0],0,n+' '+a[1]+'<em>Flex: '+a[2]+'</em><em>×1</em>','','fa')});
  h+=r+'</div>'});
 h+='<h3>Wild</h3><div class="row">'+
- wild(cw(svg(crossI,16),'+2'),WB,0,'Wild<em>Flex: Targeted Draw Two</em><em>×8 (either flex)</em>',0,0,'fa')+
- wild(cw(svg(peopleI,17),'+2'),WB,0,'Wild<em>Flex: All Draw Two</em><em>×8 (either flex)</em>',0,0,'fa')+
+ wild(cw(svg(crossI,16),'+2'),WB,0,'Wild<em>Flex: Targeted Draw Two</em><em>×4</em>',0,0,'fa')+
+ wild(cw(svg(peopleI,17),'+2'),WB,0,'Wild<em>Flex: All Draw Two</em><em>×4</em>',0,0,'fa')+
  wild(cw(svg(crossI,16),'+4'),fanN(4),0,'Wild Draw Four<em>Flex: Targeted Draw Four</em><em>×2</em>',0,0,'fa')+
  wild(svg('<circle cx="32" cy="32" r="23" fill="none" stroke="currentColor" stroke-width="5"/><path d="M32 9V55" stroke="currentColor" stroke-width="4"/><svg x="14" y="14" width="36" height="36" viewBox="0 0 64 64">'+revI+'</svg>',22),svg('<path d="M32 10A22 22 0 0 0 32 54Z" fill="#34a853"/><path d="M32 10A22 22 0 0 1 32 54Z" fill="#e63b1f"/><circle cx="32" cy="32" r="22" fill="none" stroke="#fff" stroke-width="3"/><svg x="16" y="16" width="32" height="32" viewBox="0 0 64 64" style="color:#fff">'+revI+'</svg>',56)+'<div class="sm">ALL FLIP</div>',0,'Wild All Flip<em>Flex: all players flip power tokens</em><em>×6</em>',0,0,'fa')+'</div>';
-sec('flex','UNO Flex','The oval and card edge keep the main color, and the dotted outer area is the flex color. On action cards the oval shows the regular action; the dotted area and corner symbols show the flex action. Color pairings are examples. 112 cards: one flex and one regular copy of each number 1–8 and of Draw Two, Skip and Reverse per color, plus the wilds below. The 8 power tokens are not in the draw deck.',h);
+sec('flex','UNO Flex','112 cards: 104 to draw from plus 8 power tokens. Regular cards have a solid face. Flex number cards show their flex color around the oval. Flex action cards keep the main color with a dotted face, and their corner symbols show the flex action. On regular number cards the flip icon makes you flip your power token: it is on even numbers for Red and Green, odd numbers for Blue and Yellow.',h);
 </script>
 </body>
 </html>
